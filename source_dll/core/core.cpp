@@ -1,8 +1,7 @@
 #ifndef MAIN_CORE_CPP
 #define MAIN_CORE_CPP
 
-#include "main_core.hpp"
-
+#include "core.hpp"
 namespace gvar // namespace: global variables for core
 {
 	std::uint64_t sampl;
@@ -23,8 +22,7 @@ void Repetition(T* signal_out, const std::vector<T>& signal_in, uint64_t sampl)
 		// m - Перебирает массив с данными
 		if (m < signal_in.size())
 			signal_out[n] = signal_in.at(m);
-		else
-		{
+		else {
 			m = 0;
 			signal_out[n] = signal_in.at(m);
 		}
