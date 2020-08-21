@@ -1,3 +1,19 @@
+п»ї/*
+ * Copyright 2020, Reifat.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   	 http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 #ifndef MAIN_CORE_CPP
 #define MAIN_CORE_CPP
 
@@ -12,14 +28,14 @@ namespace gvar // namespace: global variables for core
 	std::uniform_real_distribution<double> uniform(0.0, 1.0); 
 }
 
-// Зацикливам период сигнала пока не наберем достаточное колличество выборок
+// Р—Р°С†РёРєР»РёРІР°Рј РїРµСЂРёРѕРґ СЃРёРіРЅР°Р»Р° РїРѕРєР° РЅРµ РЅР°Р±РµСЂРµРј РґРѕСЃС‚Р°С‚РѕС‡РЅРѕРµ РєРѕР»Р»РёС‡РµСЃС‚РІРѕ РІС‹Р±РѕСЂРѕРє
 template<typename T>
 void Repetition(T* signal_out, const std::vector<T>& signal_in, uint64_t sampl)
 {
 	for (atl::enum_t n = 0, m = gvar::start; n < sampl; n++, m++)
 	{
-		// n - Перебирает массив вывода
-		// m - Перебирает массив с данными
+		// n - РџРµСЂРµР±РёСЂР°РµС‚ РјР°СЃСЃРёРІ РІС‹РІРѕРґР°
+		// m - РџРµСЂРµР±РёСЂР°РµС‚ РјР°СЃСЃРёРІ СЃ РґР°РЅРЅС‹РјРё
 		if (m < signal_in.size())
 			signal_out[n] = signal_in.at(m);
 		else {
@@ -58,13 +74,13 @@ void GenerateNose(double* arr, std::function<double(std::mt19937&)> f) {
 
 /// ********************* CORE API *********************
 
-// Инициализация глобальных переменных core
+// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіР»РѕР±Р°Р»СЊРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С… core
 void Initialization(uint64_t sampl, uint64_t infs) {
 	gvar::sampl = sampl;
 	gvar::fs=infs;
 	gvar::period = 1 / (double)infs;
-	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count(); // Получаем текущее время
-	gvar::Mt.seed(seed); // Инициализация генератора случайных чисел текущем временем
+	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count(); // РџРѕР»СѓС‡Р°РµРј С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ
+	gvar::Mt.seed(seed); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіРµРЅРµСЂР°С‚РѕСЂР° СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР» С‚РµРєСѓС‰РµРј РІСЂРµРјРµРЅРµРј
 	gvar::start = (uint64_t)round(gvar::uniform(gvar::Mt) * gvar::sampl);
 }
 
@@ -142,7 +158,7 @@ void Nose(double* arr, uint16_t num, double par_0 = 1, double par_1 = 2, error_t
 	}
 }
 
-// Перемешивает элементы вектора (сделай с человеческим ГСЧ)
+// РџРµСЂРµРјРµС€РёРІР°РµС‚ СЌР»РµРјРµРЅС‚С‹ РІРµРєС‚РѕСЂР° (СЃРґРµР»Р°Р№ СЃ С‡РµР»РѕРІРµС‡РµСЃРєРёРј Р“РЎР§)
 void SwapArr(double* array_)
 {
 	for (atl::enum_t n = 0; n < gvar::sampl; n++) {

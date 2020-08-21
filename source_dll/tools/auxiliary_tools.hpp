@@ -1,3 +1,19 @@
+п»ї/*
+ * Copyright 2020, Reifat.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   	 http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
 #ifndef AUXILIARY_TOOLS_HPP
 #define AUXILIARY_TOOLS_HPP
 
@@ -24,37 +40,37 @@ namespace atl {
 #endif
 
 
-	// Интерполяция функции
+	// РРЅС‚РµСЂРїРѕР»СЏС†РёСЏ С„СѓРЅРєС†РёРё
 	void L_I(vec2d_dty& f_in, vec1d_dty& x, vec2d_dty& f_out) {
-		// f[0] - Xi Значения узлов 
-		// f[1] - Yi Значения функции в узлах
-		// x[n] - значения точек интерполяции
-		int  k = f_in.at(0).size() - 1;		  // Инициализация степени полинома
-		f_out[0] = x;						  // Присвоение массиву значений x интерполяции
-		vec2d_dty intermediate_L_I(k + 1); // Инициализация массива промежуточных вычисленний
-		for (enum_t i = 0; i <= k; i++) {        // Цикл выражает базовые полимы в точках x
-			vec2d_dty L_i(x.size(), vec1d_dty(k)); // Инициализируем массив для записи iго полинома
+		// f[0] - Xi Р—РЅР°С‡РµРЅРёСЏ СѓР·Р»РѕРІ 
+		// f[1] - Yi Р—РЅР°С‡РµРЅРёСЏ С„СѓРЅРєС†РёРё РІ СѓР·Р»Р°С…
+		// x[n] - Р·РЅР°С‡РµРЅРёСЏ С‚РѕС‡РµРє РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
+		int  k = f_in.at(0).size() - 1;		  // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃС‚РµРїРµРЅРё РїРѕР»РёРЅРѕРјР°
+		f_out[0] = x;						  // РџСЂРёСЃРІРѕРµРЅРёРµ РјР°СЃСЃРёРІСѓ Р·РЅР°С‡РµРЅРёР№ x РёРЅС‚РµСЂРїРѕР»СЏС†РёРё
+		vec2d_dty intermediate_L_I(k + 1); // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјР°СЃСЃРёРІР° РїСЂРѕРјРµР¶СѓС‚РѕС‡РЅС‹С… РІС‹С‡РёСЃР»РµРЅРЅРёР№
+		for (enum_t i = 0; i <= k; i++) {        // Р¦РёРєР» РІС‹СЂР°Р¶Р°РµС‚ Р±Р°Р·РѕРІС‹Рµ РїРѕР»РёРјС‹ РІ С‚РѕС‡РєР°С… x
+			vec2d_dty L_i(x.size(), vec1d_dty(k)); // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РјР°СЃСЃРёРІ РґР»СЏ Р·Р°РїРёСЃРё iРіРѕ РїРѕР»РёРЅРѕРјР°
 			unsigned int flag = 0;
-			for (enum_t m = 0; m <= k; m++) // выразить iй базовый полином
+			for (enum_t m = 0; m <= k; m++) // РІС‹СЂР°Р·РёС‚СЊ iР№ Р±Р°Р·РѕРІС‹Р№ РїРѕР»РёРЅРѕРј
 			{							 //			|	   |	
 				if (i != m) {			 //		   \'/	  \'/
-					for (enum_t j = 0; j < x.size(); j++) // в точках x
-						L_i[j][m - flag] = (x[j] - f_in[0][m]) / (f_in[0][i] - f_in[0][m]); // основное выражение полинома
+					for (enum_t j = 0; j < x.size(); j++) // РІ С‚РѕС‡РєР°С… x
+						L_i[j][m - flag] = (x[j] - f_in[0][m]) / (f_in[0][i] - f_in[0][m]); // РѕСЃРЅРѕРІРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ РїРѕР»РёРЅРѕРјР°
 				}
 				else
 					flag = 1;
 			}
-			VecOperat2d<double>::Multiplication(L_i, intermediate_L_I.at(i)); // Вычислим произведения основных выражений iго полинома
-																			   // Результат будет выражен в iй базовый полином
-			for (enum_t m = 0; m < x.size(); m++)  // Умножим базовый полином на значение функции в iм узле
+			VecOperat2d<double>::Multiplication(L_i, intermediate_L_I.at(i)); // Р’С‹С‡РёСЃР»РёРј РїСЂРѕРёР·РІРµРґРµРЅРёСЏ РѕСЃРЅРѕРІРЅС‹С… РІС‹СЂР°Р¶РµРЅРёР№ iРіРѕ РїРѕР»РёРЅРѕРјР°
+																			   // Р РµР·СѓР»СЊС‚Р°С‚ Р±СѓРґРµС‚ РІС‹СЂР°Р¶РµРЅ РІ iР№ Р±Р°Р·РѕРІС‹Р№ РїРѕР»РёРЅРѕРј
+			for (enum_t m = 0; m < x.size(); m++)  // РЈРјРЅРѕР¶РёРј Р±Р°Р·РѕРІС‹Р№ РїРѕР»РёРЅРѕРј РЅР° Р·РЅР°С‡РµРЅРёРµ С„СѓРЅРєС†РёРё РІ iРј СѓР·Р»Рµ
 				intermediate_L_I[i][m] *= f_in[1][i];
 		}
 		VecOperat2d<double>::Transposition(intermediate_L_I);
-		VecOperat2d<double>::Sum(intermediate_L_I, f_out.at(1)); // Результат интерполяции функции на отрезке [a ... b]
+		VecOperat2d<double>::Sum(intermediate_L_I, f_out.at(1)); // Р РµР·СѓР»СЊС‚Р°С‚ РёРЅС‚РµСЂРїРѕР»СЏС†РёРё С„СѓРЅРєС†РёРё РЅР° РѕС‚СЂРµР·РєРµ [a ... b]
 	}
 
-	// Округление числа к ближайшему из массива
-	// Указать явно тип! В форме rounding_divider<T0,T1>(...);
+	// РћРєСЂСѓРіР»РµРЅРёРµ С‡РёСЃР»Р° Рє Р±Р»РёР¶Р°Р№С€РµРјСѓ РёР· РјР°СЃСЃРёРІР°
+	// РЈРєР°Р·Р°С‚СЊ СЏРІРЅРѕ С‚РёРї! Р’ С„РѕСЂРјРµ rounding_divider<T0,T1>(...);
 	template<typename T0, typename T1>
 	it_vec<T0> RoundingDivider(
 		it_vec<T0> d_first,
@@ -86,16 +102,16 @@ namespace atl {
 
 
 
-	// Выделяет интервал типа (a:b] или [a:b) из массива 
-	// и ищет число в этом интервале ближайшее к "a" либо ближайшее к "b",
-	// возвращает итератор на элемент массива который близок(или который является) к искомому числу
+	// Р’С‹РґРµР»СЏРµС‚ РёРЅС‚РµСЂРІР°Р» С‚РёРїР° (a:b] РёР»Рё [a:b) РёР· РјР°СЃСЃРёРІР° 
+	// Рё РёС‰РµС‚ С‡РёСЃР»Рѕ РІ СЌС‚РѕРј РёРЅС‚РµСЂРІР°Р»Рµ Р±Р»РёР¶Р°Р№С€РµРµ Рє "a" Р»РёР±Рѕ Р±Р»РёР¶Р°Р№С€РµРµ Рє "b",
+	// РІРѕР·РІСЂР°С‰Р°РµС‚ РёС‚РµСЂР°С‚РѕСЂ РЅР° СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° РєРѕС‚РѕСЂС‹Р№ Р±Р»РёР·РѕРє(РёР»Рё РєРѕС‚РѕСЂС‹Р№ СЏРІР»СЏРµС‚СЃСЏ) Рє РёСЃРєРѕРјРѕРјСѓ С‡РёСЃР»Сѓ
 	template<typename T0, typename T1>
 	it_vec<T0> Nearest(
-			   vec1d_tmp<T0>& arr,	   // Массив из которого выделяется интервал между чисел num_0, num_1;
-			   T1 num_0,			   // Начало интервала
-			   T1 num_1,			   // Конец интервала
-			   bool on_of = true,	   // Включить-выключить (начало-конец) интервала
-			   bool direction = true){ // Устремить в сторону false-минус бесконечности, true-плюс бесконечности
+			   vec1d_tmp<T0>& arr,	   // РњР°СЃСЃРёРІ РёР· РєРѕС‚РѕСЂРѕРіРѕ РІС‹РґРµР»СЏРµС‚СЃСЏ РёРЅС‚РµСЂРІР°Р» РјРµР¶РґСѓ С‡РёСЃРµР» num_0, num_1;
+			   T1 num_0,			   // РќР°С‡Р°Р»Рѕ РёРЅС‚РµСЂРІР°Р»Р°
+			   T1 num_1,			   // РљРѕРЅРµС† РёРЅС‚РµСЂРІР°Р»Р°
+			   bool on_of = true,	   // Р’РєР»СЋС‡РёС‚СЊ-РІС‹РєР»СЋС‡РёС‚СЊ (РЅР°С‡Р°Р»Рѕ-РєРѕРЅРµС†) РёРЅС‚РµСЂРІР°Р»Р°
+			   bool direction = true){ // РЈСЃС‚СЂРµРјРёС‚СЊ РІ СЃС‚РѕСЂРѕРЅСѓ false-РјРёРЅСѓСЃ Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚Рё, true-РїР»СЋСЃ Р±РµСЃРєРѕРЅРµС‡РЅРѕСЃС‚Рё
 		if (*(arr.end() - 1) - *arr.begin() <= 0)
 			return arr.end();
 		it_vec<T0> first = atl::RoundingDivider<T0, T1>(arr.begin(), arr.end(), num_0);
@@ -122,11 +138,11 @@ namespace atl {
 
 
 
-	// Разбиение на сегменты сигнала и интерполирование его
+	// Р Р°Р·Р±РёРµРЅРёРµ РЅР° СЃРµРіРјРµРЅС‚С‹ СЃРёРіРЅР°Р»Р° Рё РёРЅС‚РµСЂРїРѕР»РёСЂРѕРІР°РЅРёРµ РµРіРѕ
 	template<typename T>
 	vec2d_tmp<T> ILagPiecewise(vec2d_tmp<T> f, uint64_t fs, uint64_t /*32*/ window = 4) {
 		double period = 1 / (double)fs;
-		size_t s_of = round(*(f.at(0).end() - 1) / period) + 1; // плюс 1 тк также нужно учесть последнюю точку
+		size_t s_of = round(*(f.at(0).end() - 1) / period) + 1; // РїР»СЋСЃ 1 С‚Рє С‚Р°РєР¶Рµ РЅСѓР¶РЅРѕ СѓС‡РµСЃС‚СЊ РїРѕСЃР»РµРґРЅСЋСЋ С‚РѕС‡РєСѓ
 		vec2d_tmp<T> f_out(2, vec1d_tmp<T>(s_of, 0));
 		for (enum_t n = 0; n < s_of; n++)
 			f_out.at(0).at(n) += n * period;
