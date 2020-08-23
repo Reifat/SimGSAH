@@ -20,9 +20,10 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include "tools\vector_operation.hpp"
+#include "src_dll\tools\vector_operation.hpp"
+#include "src_dll\tools\interpolation.hpp"
 
-namespace atl {
+namespace atl {  // namespace auxiliary tool library
 
 #ifndef ATL_DATA_TYPE
 #define ATL_DATA_TYPE
@@ -38,36 +39,6 @@ namespace atl {
 	using vec2d_dty = std::vector<vec1d_dty>;
 	using enum_t = std::uint64_t;
 #endif
-
-
-	// Интерполяция функции
-	void L_I(vec2d_dty& f_in, vec1d_dty& x, vec2d_dty& f_out) {
-		// f[0] - Xi Значения узлов 
-		// f[1] - Yi Значения функции в узлах
-		// x[n] - значения точек интерполяции
-		int  k = f_in.at(0).size() - 1;		  // Инициализация степени полинома
-		f_out[0] = x;						  // Присвоение массиву значений x интерполяции
-		vec2d_dty intermediate_L_I(k + 1); // Инициализация массива промежуточных вычисленний
-		for (enum_t i = 0; i <= k; i++) {        // Цикл выражает базовые полимы в точках x
-			vec2d_dty L_i(x.size(), vec1d_dty(k)); // Инициализируем массив для записи iго полинома
-			unsigned int flag = 0;
-			for (enum_t m = 0; m <= k; m++) // выразить iй базовый полином
-			{							 //			|	   |	
-				if (i != m) {			 //		   \'/	  \'/
-					for (enum_t j = 0; j < x.size(); j++) // в точках x
-						L_i[j][m - flag] = (x[j] - f_in[0][m]) / (f_in[0][i] - f_in[0][m]); // основное выражение полинома
-				}
-				else
-					flag = 1;
-			}
-			VecOperat2d<double>::Multiplication(L_i, intermediate_L_I.at(i)); // Вычислим произведения основных выражений iго полинома
-																			   // Результат будет выражен в iй базовый полином
-			for (enum_t m = 0; m < x.size(); m++)  // Умножим базовый полином на значение функции в iм узле
-				intermediate_L_I[i][m] *= f_in[1][i];
-		}
-		VecOperat2d<double>::Transposition(intermediate_L_I);
-		VecOperat2d<double>::Sum(intermediate_L_I, f_out.at(1)); // Результат интерполяции функции на отрезке [a ... b]
-	}
 
 	// Округление числа к ближайшему из массива
 	// Указать явно тип! В форме rounding_divider<T0,T1>(...);
@@ -99,8 +70,6 @@ namespace atl {
 			return d_first;
 		}
 	}
-
-
 
 	// Выделяет интервал типа (a:b] или [a:b) из массива 
 	// и ищет число в этом интервале ближайшее к "a" либо ближайшее к "b",
@@ -137,7 +106,6 @@ namespace atl {
 	}
 
 
-
 	// Разбиение на сегменты сигнала и интерполирование его
 	template<typename T>
 	vec2d_tmp<T> ILagPiecewise(vec2d_tmp<T> f, uint64_t fs, uint64_t /*32*/ window = 4) {
@@ -147,7 +115,7 @@ namespace atl {
 		for (enum_t n = 0; n < s_of; n++)
 			f_out.at(0).at(n) += n * period;
 
-		uint64_t /*32*/ segments;
+                uint64_t /*32*/ segments;
 		if (f.at(0).size() < f_out.at(0).size())
 			segments = floor(f.at(0).size() / window);
 		else
@@ -156,7 +124,7 @@ namespace atl {
 		vec3d_tmp<T> segment_f(segments, vec2d_tmp<T>(2));
 		vec3d_tmp<T> segment_of(segments, vec2d_tmp<T>(2));
 		std::vector<size_t> numCeil_of(segments);
-		std::vector<std::vector<T>::iterator> it_f(segments);
+                std::vector<typename std::vector<T>::iterator > it_f(segments);
 
 		for (enum_t n = 0; n < segments; n++) {
 			for (enum_t m = 0; m < 2; m++) {
@@ -180,7 +148,7 @@ namespace atl {
 				segment_of.at(n).at(1).resize(numCeil_of.at(n), 0);
 				std::copy(first_it, last_it, segment_of.at(n).at(0).begin());
 			}
-			L_I(segment_f.at(n), segment_of.at(n).at(0), segment_of.at(n));
+            L_I(segment_f.at(n), segment_of.at(n).at(0), segment_of.at(n));
 		}
 		{
 			for (enum_t n = 0; n < segments; n++) {
@@ -192,6 +160,6 @@ namespace atl {
 		return f_out;
 	}
 
-} // end namespace etl
+} // end namespace atl
 
 #endif

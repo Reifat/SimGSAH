@@ -23,15 +23,18 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <string>
 #include "tools/auxiliary_tools.hpp"
 #include "dataloading/dataloading.hpp"
+
+#define FILE_PATH "C:/Users/Rayfat/Desktop/C++/qt_example/untitled/data/"
 
 #ifndef ERROR_TYPE
 #define ERROR_TYPE
 typedef unsigned char error_t;
 #endif
 
-#ifndef TEST_CORE
+#ifdef TEST_CORE
 #include <windows.h>
 
 #ifdef CORE_MATHLIBRARY_EXPORTS
@@ -40,18 +43,21 @@ typedef unsigned char error_t;
 #define CORE_MATHLIBRARY_API __declspec(dllimport)
 #endif
 
-extern "C" CORE_MATHLIBRARY_API {
-	void Initialization(std::uint64_t sampl, std::uint64_t infs);
-	void Get(double* arr, std::uint16_t type, std::uint64_t f, error_t * error);
-	void Nose(double* arr, std::uint16_t num, double par_0, double par_1, error_t * error);
-	void SwapArr(double* _array);
+namespace gsn {
+    extern "C" CORE_MATHLIBRARY_API {
+        void Initialization(std::uint64_t sampl, std::uint64_t infs);
+        void Get(double* arr, std::uint16_t type, std::uint64_t f, error_t * error);
+        void Nose(double* arr, std::uint16_t num, double par_0, double par_1, error_t * error);
+        void SwapArr(double* _array);
+    }
 }
 #else 
-extern void Initialization(std::uint64_t sampl, std::uint64_t infs);
-extern void Get(double* arr, std::uint16_t type, std::uint64_t f, error_t* error);
-extern void Nose(double* arr, std::uint16_t num, double par_0, double par_1, error_t* error);
-extern void SwapArr(double* _array);
-
+namespace gsn {
+    extern void Initialization(std::uint64_t sampl, std::uint64_t infs);
+    extern void Get(double* arr, std::uint16_t type, std::uint64_t f, error_t* error);
+    extern void Nose(double* arr, std::uint16_t num, double par_0, double par_1, error_t* error);
+    extern void SwapArr(double* _array);
+}
 
 #endif
 
