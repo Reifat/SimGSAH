@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 namespace atl {  // namespace auxiliary tool library
 
-	// Интерполяция функции
+	// Function interpolation by Lagrange polynomial(Интерполяция функции полиномом Лагранжа)
     void L_I(const vec2d_dty& f_in,const vec1d_dty& x, vec2d_dty& f_out) {
 		// f[0] - Xi Значения узлов 
 		// f[1] - Yi Значения функции в узлах

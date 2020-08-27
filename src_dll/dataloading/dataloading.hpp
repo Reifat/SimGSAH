@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <cmath>
 #include "src_dll\dataloading\data_parameters.hpp"
 #include "src_dll\dataloading\read_bin.hpp"
 #include "src_dll\tools\auxiliary_tools.hpp"
@@ -30,6 +31,7 @@
 
 #ifndef ERROR_TYPE
 #define ERROR_TYPE
+typedef unsigned char* error_ptr_t;
 typedef unsigned char error_t;
 #endif
 
@@ -45,19 +47,38 @@ namespace ld { // namespace data loading
 #endif
 	// Читаем данные сигнала из файла и преобразуем в массив
 	template<typename T>
-    void ReadSignal(std::string name, vec_d<T>& signal, std::uint64_t f, std::uint64_t in_fs, std::uint64_t* out_fs, error_t* error)
-	{
-		std::uint64_t a = in_fs / f;
+    void ReadSignal(std::string name, vec_d<T>& signal,
+		std::uint64_t  f,
+		std::uint64_t  in_fs,
+		std::uint64_t& out_fs,
+		error_ptr_t error = 0) {
 
-                if (a >= 3 && a <= ld::dp::sample_period)
-		{
-                        std::uint64_t d = ld::dp::sample_period * f / in_fs;
-            int ds = *atl::RoundingDivider<std::uint32_t, std::uint64_t>(dp::dividers.begin(), dp::dividers.end(), d);
-			if (out_fs != NULL)
-                                *out_fs = ld::dp::sample_period * f / ds;
-                        size_t size_ = ld::dp::sample_period / ds;
-			signal.resize(size_);
-			ld::LoadData(name, ds, signal, error);
+		if (error != 0) {
+			if ((*error != 0xFF) & (*error != 0x00))
+				return;
+		}
+		std::uint64_t sempl_ratio = std::round((double)in_fs / (double)f); // sempl ratio on period
+        if (sempl_ratio >= 3 && sempl_ratio <= ld::dp::sample_period){
+
+			std::uint64_t sempl = ld::dp::sample_period * f; // sempl on periond
+            std::uint64_t first_step = std::round((double)sempl / (double)in_fs);
+			std::uint64_t last_step = 
+						  *atl::RoundingDivider<std::uint32_t,
+												std::uint64_t>(dp::dividers.begin(),
+															   dp::dividers.end(),
+															   first_step);
+            out_fs = ld::dp::sample_period * f / last_step;
+            size_t data_size = ld::dp::sample_period / last_step;
+			signal.resize(data_size);
+			ld::LoadData(name, last_step, signal, error);
+		}
+		else {
+			if (error != 0) // If addres pointer !=0 (Если адрес указателя != 0)
+				*error = 0x55; // Set error code
+		}
+		if (error != 0) {
+			if (*error == 0xFF) // Предполагаем если 0x00 был ранее записан, то перезапись не требуется
+				*error = 0x00;
 		}
 	}
 

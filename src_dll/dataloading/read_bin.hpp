@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@
 
 #ifndef ERROR_TYPE
 #define ERROR_TYPE
+typedef unsigned char* error_ptr_t;
 typedef unsigned char error_t;
 #endif
 
@@ -41,8 +42,10 @@ namespace ld { // namespace data loading
 	using vec_d = std::vector<T>; // vector data type template
 	using data_t = vec_d<double>;
 #endif
-
-    extern void LoadData(std::string namefile, uint_64c& step_in, data_t& data, error_t* error);
+	/* Функция загрузки .dat фалов с данными
+	 * 
+	 */
+    extern void LoadData(std::string namefile, uint_64c& step_in, data_t& data, error_ptr_t error = 0);
 	
 } // end namespace dl
 

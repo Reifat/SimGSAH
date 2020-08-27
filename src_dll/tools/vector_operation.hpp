@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

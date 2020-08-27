@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,14 @@
 
 
 namespace ld { // namespace data loading
-
-
-    void LoadData(std::string namefile, uint_64c& step_in, data_t& data, error_t* error) {
-
+    void LoadData(std::string namefile, uint_64c& step_in, data_t& data, error_ptr_t error) {
+		
+		if (error != 0) {
+			if ((*error != 0xFF) & (*error != 0x00))
+				return;
+		}
+	
 		std::ifstream finput(namefile, std::ios_base::in | std::ios_base::binary);
-
 		if (finput.is_open()) {
 			std::uint64_t size_ty = sizeof(double); // size data type in vector(vector - data)
 			std::uint64_t step = 1;				    // step data read
@@ -40,11 +42,18 @@ namespace ld { // namespace data loading
 				finput.seekg(step, std::ios_base::cur);
 				n++;
 			}
+			finput.close();
 		}
 		else {
-			*error = 1;
+			if (error != 0) { // If addres pointer !=0 (Если адрес указателя != 0)
+				*error = 0x77; // Set error code: file not found;
+				return;
+			}
 		}
-		finput.close();
+		if (error != 0) {
+			if (*error == 0xFF) // Предполагаем если 0x00 был ранее записан, то перезапись не требуется
+				*error = 0x00;
+		} 
 	}
 } // end namespace ld
 

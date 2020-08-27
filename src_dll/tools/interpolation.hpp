@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,13 @@ namespace atl {  // namespace auxiliary tool library
 	using vec2d_dty = std::vector<vec1d_dty>;
 	using enum_t = std::uint64_t;
 #endif
-
-	// Интерполяция функции полиномом Лагранжа
+	/*
+	 *	Function interpolation by Lagrange polynomial (Интерполяция функции полиномом Лагранжа)
+	 *	
+	 *	Parameters: 1. f_in  - Reference to the vector of the original function.
+	 *				2. x     - A reference to a vector with points where you want to define the function.
+	 *				3. f_out - A reference to the vector to which the interpolation result will be written.
+	*/
     extern void L_I(const vec2d_dty& f_in,const vec1d_dty& x, vec2d_dty& f_out);
 
 } // end namespace etl

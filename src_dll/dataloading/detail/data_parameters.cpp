@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ namespace ld { // namespace data loading
 	namespace dp { // namespace data parameters
                const std::uint32_t f = 1;
                const std::uint32_t fs = 720720;
+			   const std::uint32_t ratio_f = 720720;	// The ratio of the sample rate to the signal frequency
                const std::uint32_t sample = 720720;
                const std::uint32_t sample_period = 720720;
                std::vector<std::uint32_t> dividers = {

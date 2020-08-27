@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat.
+ * Copyright 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,14 @@
 #include <cstdint>
 #include <vector>
 
+/* Parameters for recorded data files
+ * Параметры для записанных файлов с данными
+ */
 namespace ld { // namespace loading data
 	namespace dp { // namespace data parameters
                extern const std::uint32_t f;
                extern const std::uint32_t fs;
+               extern const std::uint32_t ratio_f;
                extern const std::uint32_t sample;
                extern const std::uint32_t sample_period;
                extern std::vector<std::uint32_t> dividers;
