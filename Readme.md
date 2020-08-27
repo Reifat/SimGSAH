@@ -11,4 +11,4 @@ To analyze the characteristics of the received signal, the program has a histogr
 
  ![Демонстрация]
 
-[Демонстрация]:(https://github.com/Reifat/SimGSAH/blob/master/pictures/Meander%20plus%20noise.PNG)
+[Демонстрация]: https://raw.githubusercontent.com/Reifat/SimGSAH/master/pictures/Meander%20plus%20noise.PNG
