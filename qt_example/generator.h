@@ -1,4 +1,4 @@
-#ifndef GENERATORSIGNALNOSE_H
+﻿#ifndef GENERATORSIGNALNOSE_H
 #define GENERATORSIGNALNOSE_H
 #include <qvector.h>
 #include <algorithm>

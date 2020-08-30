@@ -1,4 +1,4 @@
-#include "generator.h"
+﻿#include "generator.h"
 
 Generator::Generator(enum_t fs, enum_t sample):_sample(sample),
     _signal(2,QVector<double>(sample)){
