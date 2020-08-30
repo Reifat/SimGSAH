@@ -83,7 +83,8 @@ SwapArr : The function shuffles the elements of the array.
 Parameters:\
 _array - Pointer to an array with data.\
 
-russian\
+russian
+
 Заголовочный файл всей библиотеки, который предоставляет интерфейс для построения генератора сигналов/шумов.\
 Для сборки dll в файле "core.hpp" необходимо убрать коментарии перед "#define DLL_MODE_CORE", либо обьявить его перед включением этого файла.\
 Также необходимо указать путь к файлам с данными через "#define FILE_PATH "data/" если путь не указан используется по умолчанию "data/"\
@@ -166,7 +167,7 @@ Procedure execution codes:\
 0x77 - Data file not found.\
 0x55 - Invalid ratio of the sample rate to the signal frequency\
 
-rusian
+russian\
 Чтение данных запрошенного сигнала из файла а также подбирает наиболее близкую частоту дискретизации к введенной "in_fs" из имеющегося набора для последующей интерполяции(если потребуется)
  ##### Синтаксис:
     void ReadSignal(std::string name, vec_1d<T>& signal,std::uint64_t  f,std::uint64_t  in_fs,std::uint64_t& out_fs,error_ptr_t error = 0);
@@ -206,7 +207,7 @@ Procedure execution codes:\
 0x77 - Data file not found.
 
 
-rusian
+russian
 Функция загрузки данных из бинарных фалов.\
 Тип структуры данных записанной в бинарный файл указывается в параметре шаблона функции.\
 Структура данных должна иметь итераторы в стиле библиотеки "std", а также иметь метод "begin()".\
@@ -238,7 +239,8 @@ sample  - total signal counts recorded in the file;\
 sample_period - counts the signal for a single period.
 
 
-rusian
+russian
+
 Параметры записанных сигналов в бинарные файлы.\
 Все объявления параметров данных находятся в пространстве имен "ld::dp"\
 Обозначения пространств имен ld - loading data, dp - data parameters\
@@ -286,7 +288,7 @@ f_out  - A reference to the vector to which the interpolation result will be wri
 fs     - New sampling rate\
 window - Size of the window for splitting
 
- rusian
+ russian
  
  Все вспомогательные инструменты находятся в пространстве имен "atl" (пространство имен auxiliary tool library)\
  #### Функции и процедуры:
@@ -380,7 +382,7 @@ in_vec  - Reference to the vector whose elements you want to perform the operati
 out_vec - A reference to the 1D vector in which the result of the operation will be written.\
 	  The size of the 1D vector must be equal to the number of rows of the 2D vector!
 
-rusian\
+russian\
 Статический класс операций над 1D/2D векторами\
 Методы:\
  + Быстрое удаление элемента вектора по индексу
