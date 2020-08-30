@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,9 +45,20 @@ namespace ld { // namespace data loading
 	using vec_d = std::vector<T>; // vector data type template
 	using data_t = vec_d<double>;
 #endif
-	// Читаем данные сигнала из файла и преобразуем в массив
+	/*  Reading the data of the requested signal from the file and selecting the one closest
+	 *  to the entered sampling rate "in_fs" from the available set for interpolation(if required)
+	 *  Чтение данных запрошенного сигнала из файла а также подбирает наиболее близкую частоту
+	 *  дискретизации к введенной "in_fs" из имеющегося набора для последующей интерполяции(если потребуется)
+	 *  Parameters: 1. name - file name(Имя файла)
+	 *  (Параметры) 2. signal - reference to the vector in which the signal will be written
+	 *				   (Ссылка на вектор, в который будет записан сигнал)
+	 *				3. f - signal frequence
+	 *              4. in_fs - original sampling rate (Исходная частота дискретизации)
+	 *				5. out_fs - Sample rate of the signal that was read(частота дискретизации прочитанного сигнала из файла)
+	 *				6. error - function execution code
+	 */
 	template<typename T>
-    void ReadSignal(std::string name, vec_d<T>& signal,
+    void ReadSignal(std::string name, vec_1d<T>& signal,
 		std::uint64_t  f,
 		std::uint64_t  in_fs,
 		std::uint64_t& out_fs,
@@ -68,7 +79,7 @@ namespace ld { // namespace data loading
 															   dp::dividers.end(),
 															   first_step);
             out_fs = ld::dp::sample_period * f / last_step;
-            size_t data_size = ld::dp::sample_period / last_step;
+			std::uint64_t data_size = ld::dp::sample_period / last_step;
 			signal.resize(data_size);
 			ld::LoadData(name, last_step, signal, error);
 		}

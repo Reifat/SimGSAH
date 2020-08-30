@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,10 +38,12 @@ namespace atl {  // namespace auxiliary tool library
 	/*
 	 *	Function interpolation by Lagrange polynomial (Интерполяция функции полиномом Лагранжа)
 	 *	
-	 *	Parameters: 1. f_in  - Reference to the vector of the original function.
+	 *	Parameters: 1. f_in  - Reference to the vector of the original function.(Ссылка на вектор исходной функции)
 	 *				2. x     - A reference to a vector with points where you want to define the function.
+	 *						   (Ссылка на вектор с точками, в которых необходимо определить функцию)
 	 *				3. f_out - A reference to the vector to which the interpolation result will be written.
-	*/
+	 *						   (Ссылка на вектор, для записи результата интерполяции)
+	 */
     extern void L_I(const vec2d_dty& f_in,const vec1d_dty& x, vec2d_dty& f_out);
 
 } // end namespace etl

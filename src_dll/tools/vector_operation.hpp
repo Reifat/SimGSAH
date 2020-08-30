@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,43 @@
 #include <functional>
 
 namespace atl { // namespace auxiliary tool library
+
+	/*  Static class of operations on 1D/2D vectors
+	 *  Статический класс операций над 1D/2D векторами
+	 *  metodth(методы): 
+	 *  1. - void QuickRemove(vec1d& in_vec, std::size_t inx) 
+	 *		 Quick removal of an item by its index 
+	 *       Быстрое удаление элемента вектора по индексу
+	 *       Parametrs: 1. in_vec - Reference to the vector where you want to remove the element
+	 *						        Ссылка на вектор, в котором требуется удалить элемент
+	 *					2. inx    - The index of the item in the vector (Индекс элемента в векторе)
+	 *  2. - void Transposition(vec2d& in_vec) - Transpose 2D vector elements (Транспонирование элементов 2D вектора)
+	 *		 Parametrs: 1. in_vec - Reference to the 2D vector to be transposed
+	 *								Ссылка на 2D вектор который нужно транспонировать
+	 *  3,4,5,6. - The following functions have the same internal structure and differ only in the operation performed.
+	 *			   Нижеследующие функции основаны на одинаковом принципе, и отличаются только выполняемой операцией
+	 * 
+	 *			   T Sum(vec1d& vec)            |-> Sum/Difference/Multiplication/Division -
+	 *			   T Difference(vec1d& vec)		|-> all elements of the input "vec" 1D vector, and returns the result.
+	 *			   T Multiplication(vec1d& vec) |-> Сумма/разность/произведение/отношение -
+	 *			   T Division(vec1d& vec)		|-> всех элементов входного "vec" 1D вектора, и возвращение результата.
+	 *			   Parametrs  : vec - Reference to the vector whose elements you want to perform the operation on.
+	 *			   (Параметры)        Ссылка на вектор, с элементами которого вы хотите выполнить операцию
+	 *		
+	 *         * * Overloads, for 2D vectors * * 
+	 *			   void Sum(vec2d& in_vec, vec1d& out_vec)			  |-> Sum/Difference/Multiplication/Division - 
+	 *			   void Difference(vec2d& in_vec, vec1d& out_vec)	  |-> all row elements of the input" in_vec "2D vector and returns
+	 *			   void Multiplication(vec2d& in_vec, vec1d& out_vec) |-> the result in the" out_vec " 1D vector.
+	 *			   void Division(vec2d& in_vec, vec1d& out_vec)		  |-> Сумма/разность/произведение/отношение -
+	 *																  |-> всех элементов строк входного "in_vec" 2D вектора и возвращает
+	 *																  |-> результат в "out_vec" 1D вектор
+	 *			  Parametrs  :  1. in_vec - Reference to the vector whose elements you want to perform the operation on.
+	 *			  (Параметры)               (Ссылка на вектор, с элементами которого вы хотите выполнить операцию)
+	 *							2. out_vec - A reference to the 1D vector in which the result of the operation will be written.
+	 *										 The size of the 1D vector must be equal to the number of rows of the 2D vector!
+	 *										 Ссылка на 1D вектор, в котором будет записан результат операции.
+	 *										 Размер 1D вектора должен быть равен количеству строк 2D вектора!
+	 */
 
 	template<typename T>
 	class VecOperat2d {
@@ -86,7 +123,6 @@ namespace atl { // namespace auxiliary tool library
 			Operations(in_vec, out_vec, f);
 		}
 
-		template<unsigned int n = 0>
 		inline static T Difference(vec1d& vec) {
 			func_2arg f = [](T cur_val, T next_val)->T {
 				return cur_val - next_val;
@@ -98,7 +134,6 @@ namespace atl { // namespace auxiliary tool library
 			Operations(in_vec, out_vec, f);
 		}
 
-		template<unsigned int n = 0>
 		inline static T Multiplication(vec1d& vec) {
 			func_2arg f = [](T cur_val, T next_val)->T {
 				return cur_val * next_val;
@@ -110,7 +145,6 @@ namespace atl { // namespace auxiliary tool library
 			Operations(in_vec, out_vec, f);
 		}
 
-		template<unsigned int n = 0>
 		inline static T Division(vec1d& vec) {
 			func_2arg f = [](T cur_val, T next_val)->T {
 				return cur_val / next_val;

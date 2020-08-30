@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ typedef unsigned char* error_ptr_t;
 typedef unsigned char error_t;
 #endif
 
-/* * * * Error code list (Required when using the dll) * * * *
+/* * * * Status  code list (Required when using the dll) * * * *
  * * * * 1. - 0xFF: Status undefined(!!!this value must be passed in function!!!) (Состояние не определено);
  * * * * 2. - 0x00: Successful completion (Успешное завершение);
  * * * * 3. - 0x11: No object with the requested number (Нет объекта с запрашиваемым номером);

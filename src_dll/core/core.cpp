@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@
 
 #include "src_dll\core.hpp"
 
+#pragma warning(push)
+#pragma warning(disable:4244)
 namespace gsn{ // namespace generate signals and noise
 
 template<typename T>
@@ -212,4 +214,6 @@ using vec2d = std::vector<vec1d<T>>;
 		}
 	}
 } // end namespace gsn
+
+#pragma warning(pop)
 #endif

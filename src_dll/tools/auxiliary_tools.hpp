@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2020, Reifat ©.
+ * Copyright 2019 - 2020, Reifat ©.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@
 #include "src_dll\tools\vector_operation.hpp"
 #include "src_dll\tools\interpolation.hpp"
 
+#pragma warning(push)
+#pragma warning(disable:4244)
 namespace atl {  // namespace auxiliary tool library
 
 #ifndef ATL_DATA_TYPE
@@ -55,7 +57,7 @@ namespace atl {  // namespace auxiliary tool library
 		it_vec<T0> it_last,
 		T1 number,
         enum_t size = 0) {
-		size_t s_vec = size;
+		enum_t s_vec = size;
 		if (s_vec == 0) { // Если размер вектора не был указан, вычислим его
 			while (it_first != it_last) {
 				it_first++;
@@ -64,8 +66,8 @@ namespace atl {  // namespace auxiliary tool library
 			it_first -= s_vec;
 		}
 		if (s_vec > 1) {
-			size_t half_first = round(s_vec / 2);
-			size_t half_last = s_vec - half_first;
+			enum_t half_first = round(s_vec / 2);
+			enum_t half_last = s_vec - half_first;
 			if (number > * (it_first + half_first - 1))
 				return atl::RoundingDivider<T0, T1>(it_first + half_first, it_last, number, half_last);
 			else
@@ -75,6 +77,7 @@ namespace atl {  // namespace auxiliary tool library
 			return it_first;
 		}
 	}
+
 
 	/* Extracts an interval of type (a: b] or [a: b) from 
 	 * a vector and searches for a number in this interval
@@ -184,5 +187,5 @@ namespace atl {  // namespace auxiliary tool library
 	}
 
 } // end namespace atl
-
+#pragma warning(pop)
 #endif
